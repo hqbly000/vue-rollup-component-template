@@ -56,7 +56,7 @@ function normalizeComponent(template, style, script, scopeId, isFunctionalTempla
   } // Vue.extend constructor export interop.
 
 
-  var options = typeof script === 'function' ? script.options : script; // render functions
+  const options = typeof script === 'function' ? script.options : script; // render functions
 
   if (template && template.render) {
     options.render = template.render;
@@ -73,11 +73,11 @@ function normalizeComponent(template, style, script, scopeId, isFunctionalTempla
     options._scopeId = scopeId;
   }
 
-  var hook;
+  let hook;
 
   if (moduleIdentifier) {
     // server build
-    hook = function hook(context) {
+    hook = function (context) {
       // 2.3 injection
       context = context || // cached call
       this.$vnode && this.$vnode.ssrContext || // stateful
@@ -103,8 +103,8 @@ function normalizeComponent(template, style, script, scopeId, isFunctionalTempla
 
     options._ssrRegister = hook;
   } else if (style) {
-    hook = shadowMode ? function () {
-      style.call(this, createInjectorShadow(this.$root.$options.shadowRoot));
+    hook = shadowMode ? function (context) {
+      style.call(this, createInjectorShadow(context, this.$root.$options.shadowRoot));
     } : function (context) {
       style.call(this, createInjector(context));
     };
@@ -113,7 +113,7 @@ function normalizeComponent(template, style, script, scopeId, isFunctionalTempla
   if (hook) {
     if (options.functional) {
       // register for functional component in vue file
-      var originalRender = options.render;
+      const originalRender = options.render;
 
       options.render = function renderWithStyleInjection(h, context) {
         hook.call(context);
@@ -121,7 +121,7 @@ function normalizeComponent(template, style, script, scopeId, isFunctionalTempla
       };
     } else {
       // inject component registration as beforeCreate hook
-      var existing = options.beforeCreate;
+      const existing = options.beforeCreate;
       options.beforeCreate = existing ? [].concat(existing, hook) : [hook];
     }
   }
@@ -129,12 +129,10 @@ function normalizeComponent(template, style, script, scopeId, isFunctionalTempla
   return script;
 }
 
-var normalizeComponent_1 = normalizeComponent;
-
 /* script */
 const __vue_script__ = script;
 /* template */
-var __vue_render__ = function() {
+var __vue_render__ = function () {
   var _vm = this;
   var _h = _vm.$createElement;
   var _c = _vm._self._c || _h;
@@ -148,9 +146,9 @@ var __vue_render__ = function() {
         _c("div", { staticClass: "v-list-date-label" }, [_vm._v("当前时间：")]),
         _vm._v(" "),
         _c("div", { staticClass: "v-list-date-text" }, [
-          _vm._v(_vm._s(_vm.date))
-        ])
-      ])
+          _vm._v(_vm._s(_vm.date)),
+        ]),
+      ]),
     ],
     2
   )
@@ -161,7 +159,7 @@ __vue_render__._withStripped = true;
   /* style */
   const __vue_inject_styles__ = undefined;
   /* scoped */
-  const __vue_scope_id__ = "data-v-5c36e941";
+  const __vue_scope_id__ = "data-v-007336ee";
   /* module identifier */
   const __vue_module_identifier__ = undefined;
   /* functional template */
@@ -170,15 +168,19 @@ __vue_render__._withStripped = true;
   
   /* style inject SSR */
   
+  /* style inject shadow dom */
+  
 
   
-  var Main = normalizeComponent_1(
+  const __vue_component__ = /*#__PURE__*/normalizeComponent(
     { render: __vue_render__, staticRenderFns: __vue_staticRenderFns__ },
     __vue_inject_styles__,
     __vue_script__,
     __vue_scope_id__,
     __vue_is_functional_template__,
     __vue_module_identifier__,
+    false,
+    undefined,
     undefined,
     undefined
   );
@@ -202,13 +204,13 @@ var script$1 = {
 /* script */
 const __vue_script__$1 = script$1;
 /* template */
-var __vue_render__$1 = function() {
+var __vue_render__$1 = function () {
   var _vm = this;
   var _h = _vm.$createElement;
   var _c = _vm._self._c || _h;
   return _c(
     "div",
-    _vm._l(_vm.list, function(item, index) {
+    _vm._l(_vm.list, function (item, index) {
       return _c(
         "a",
         { key: index, staticClass: "v-list-item", attrs: { href: item.url } },
@@ -233,20 +235,92 @@ __vue_render__$1._withStripped = true;
   
   /* style inject SSR */
   
+  /* style inject shadow dom */
+  
 
   
-  var Main$1 = normalizeComponent_1(
+  const __vue_component__$1 = /*#__PURE__*/normalizeComponent(
     { render: __vue_render__$1, staticRenderFns: __vue_staticRenderFns__$1 },
     __vue_inject_styles__$1,
     __vue_script__$1,
     __vue_scope_id__$1,
     __vue_is_functional_template__$1,
     __vue_module_identifier__$1,
+    false,
+    undefined,
     undefined,
     undefined
   );
 
-var components = [Main, Main$1];
+//
+var script$2 = {
+  name: 'IBlock',
+
+  data() {
+    return {
+      date: formatDate(new Date())
+    };
+  }
+
+};
+
+/* script */
+const __vue_script__$2 = script$2;
+/* template */
+var __vue_render__$2 = function () {
+  var _vm = this;
+  var _h = _vm.$createElement;
+  var _c = _vm._self._c || _h;
+  return _c(
+    "div",
+    [
+      _vm._t("default"),
+      _vm._v(" "),
+      _c("span", [_vm._v(" " + _vm._s(_vm.date) + " ")]),
+      _vm._v(" "),
+      _c(
+        "el-badge",
+        { staticClass: "item", attrs: { value: 12 } },
+        [_c("el-button", { attrs: { size: "small" } }, [_vm._v("评论")])],
+        1
+      ),
+    ],
+    2
+  )
+};
+var __vue_staticRenderFns__$2 = [];
+__vue_render__$2._withStripped = true;
+
+  /* style */
+  const __vue_inject_styles__$2 = undefined;
+  /* scoped */
+  const __vue_scope_id__$2 = "data-v-7142edd8";
+  /* module identifier */
+  const __vue_module_identifier__$2 = undefined;
+  /* functional template */
+  const __vue_is_functional_template__$2 = false;
+  /* style inject */
+  
+  /* style inject SSR */
+  
+  /* style inject shadow dom */
+  
+
+  
+  const __vue_component__$2 = /*#__PURE__*/normalizeComponent(
+    { render: __vue_render__$2, staticRenderFns: __vue_staticRenderFns__$2 },
+    __vue_inject_styles__$2,
+    __vue_script__$2,
+    __vue_scope_id__$2,
+    __vue_is_functional_template__$2,
+    __vue_module_identifier__$2,
+    false,
+    undefined,
+    undefined,
+    undefined
+  );
+
+var components = [__vue_component__, __vue_component__$1, __vue_component__$2];
 
 var install = function install(Vue) {
   components.forEach(function (component) {

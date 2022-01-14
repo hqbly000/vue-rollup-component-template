@@ -5,6 +5,7 @@
     <v-list>
       <v-list-item :list="list"></v-list-item>
     </v-list>
+    <i-block>123123</i-block>
   </div>
 </template>
 
