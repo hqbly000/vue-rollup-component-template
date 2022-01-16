@@ -1,32 +1,69 @@
 <template>
   <div id="app">
-    <h1>vue-rollup-component-template</h1>
-    <p>轻松进行组件开发、发布、展示</p>
-    <v-list>
-      <v-list-item :list="list"></v-list-item>
-    </v-list>
-    <i-block>123123</i-block>
+      <draggable v-model="arr" @start="onStart" @end="onEnd" chosen-class="chosen" class="drag">
+        <div v-for="element in arr" :key="element.id" >
+            <i-block
+            :type="element.type"
+            :options="options"
+          ></i-block>
+        </div>
+      </draggable>
   </div>
 </template>
 
 <script>
+import draggable from "vuedraggable";
+
 export default {
-  name: 'app',
+  name: "app",
+  components: {
+    draggable,
+  },
   data() {
     return {
-      list: [
+      options: [
         {
-          title: '文档',
-          url: 'https://juejin.im/post/5d255c566fb9a07eac05fbd8#heading-6'
+          value: "选项1",
+          label: "黄金糕",
         },
         {
-          title: 'github',
-          url: 'https://github.com/blryli/vue-rollup-component-template'
-        }
-      ]
+          value: "选项2",
+          label: "双皮奶",
+        },
+        {
+          value: "选项3",
+          label: "蚵仔煎",
+        },
+        {
+          value: "选项4",
+          label: "龙须面",
+        },
+        {
+          value: "选项5",
+          label: "北京烤鸭",
+        },
+      ],
+      arr: [
+        { id: 0, type: "text" },
+        { id: 1, type: "select" },
+        { id: 2, type: "expr" },
+        { id: 3, type: "text" },
+        { id: 4, type: "text" },
+        { id: 5, type: "text" },
+        { id: 6, type: "text" },
+        { id: 7, type: "text" },
+      ],
+    };
+  },
+  methods:{
+    onStart(){
+      console.log("start...")
+    },
+    onEnd(){
+      console.log("end...")
     }
   }
-}
+};
 </script>
 
 <style>
@@ -39,22 +76,10 @@ export default {
   margin-top: 60px;
 }
 
-h1,
-h2 {
-  font-weight: normal;
+.drag {
+  width: 500px;
+  display: flex;
+  align-content: flex-start;
 }
 
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
-a {
-  color: #42b983;
-}
 </style>

@@ -254,14 +254,33 @@ __vue_render__$1._withStripped = true;
 
 //
 var script$2 = {
-  name: 'IBlock',
+  name: "IBlock",
+  props: {
+    type: {
+      type: String,
+      required: true
+    },
+    options: {
+      type: Array,
+      // 对象或数组默认值必须从一个工厂函数获取
+      default: function _default() {
+        return [];
+      }
+    }
+  },
 
   data() {
     return {
-      date: formatDate(new Date())
+      val: ""
     };
-  }
+  },
 
+  methods: {
+    handleClick() {
+      console.log(`close`);
+    }
+
+  }
 };
 
 /* script */
@@ -271,22 +290,65 @@ var __vue_render__$2 = function () {
   var _vm = this;
   var _h = _vm.$createElement;
   var _c = _vm._self._c || _h;
-  return _c(
-    "div",
-    [
-      _vm._t("default"),
-      _vm._v(" "),
-      _c("span", [_vm._v(" " + _vm._s(_vm.date) + " ")]),
-      _vm._v(" "),
-      _c(
-        "el-badge",
-        { staticClass: "item", attrs: { value: 12 } },
-        [_c("el-button", { attrs: { size: "small" } }, [_vm._v("评论")])],
-        1
-      ),
-    ],
-    2
-  )
+  return _c("div", { staticClass: "i-block-item" }, [
+    _c("div", { staticClass: "i-blcok-content" }, [
+      _vm.type == "text"
+        ? _c(
+            "div",
+            [
+              _c("el-input", {
+                attrs: { placeholder: "请输入内容" },
+                model: {
+                  value: _vm.val,
+                  callback: function ($$v) {
+                    _vm.val = $$v;
+                  },
+                  expression: "val",
+                },
+              }),
+            ],
+            1
+          )
+        : _vm.type == "expr"
+        ? _c(
+            "div",
+            [
+              _c("el-button", { attrs: { circle: "" } }, [
+                _vm._v(_vm._s(_vm.val)),
+              ]),
+            ],
+            1
+          )
+        : _vm.type == "select"
+        ? _c(
+            "div",
+            [
+              _c(
+                "el-select",
+                {
+                  attrs: { placeholder: "请选择" },
+                  model: {
+                    value: _vm.val,
+                    callback: function ($$v) {
+                      _vm.val = $$v;
+                    },
+                    expression: "val",
+                  },
+                },
+                _vm._l(_vm.options, function (item) {
+                  return _c("el-option", {
+                    key: item.value,
+                    attrs: { label: item.label, value: item.value },
+                  })
+                }),
+                1
+              ),
+            ],
+            1
+          )
+        : _vm._e(),
+    ]),
+  ])
 };
 var __vue_staticRenderFns__$2 = [];
 __vue_render__$2._withStripped = true;
@@ -294,7 +356,7 @@ __vue_render__$2._withStripped = true;
   /* style */
   const __vue_inject_styles__$2 = undefined;
   /* scoped */
-  const __vue_scope_id__$2 = "data-v-7142edd8";
+  const __vue_scope_id__$2 = "data-v-5c04f1f1";
   /* module identifier */
   const __vue_module_identifier__$2 = undefined;
   /* functional template */
